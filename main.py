@@ -143,13 +143,3 @@ async def create_checkout_session(data: dict, user: User = Depends(get_current_u
     )
     return {"sessionId": session.id}
 
-    @app.get("/debug/db")
-def test_db():
-    try:
-        response = supabase.table("users").select("id").limit(1).execute()
-        return {
-            "status": "connected",
-            "rows_found": len(response.data) if response.data else 0
-        }
-    except Exception as e:
-        return {"error": str(e)}
